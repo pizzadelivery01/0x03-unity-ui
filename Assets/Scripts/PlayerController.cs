@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private Rigidbody body;
     private Vector3 movement;
+    private int score = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +27,14 @@ public class PlayerController : MonoBehaviour
     void movePlayer(Vector3 direction)
     {
         body.AddForce(direction * speed);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Pickup")
+        {
+            Destroy(other.gameObject);
+            score += 1;
+            Debug.Log("Score: " + score);
+        }
     }
 }
