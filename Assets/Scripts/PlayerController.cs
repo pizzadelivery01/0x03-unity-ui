@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 	public Text scoreText;
+	public Text healthText;
     public float speed;
     private Rigidbody body;
     private Vector3 movement;
@@ -51,15 +52,26 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Trap")
         {
             health -= 1;
-            Debug.Log(string.Format("Health: {0}", health));
+			SetHealthText();
+            //Debug.Log(string.Format("Health: {0}", health));
         }
           if (other.gameObject.tag == "Goal")
         {
             Debug.Log(string.Format("You win!"));
         }
     }
+	/// <summary>
+	/// sets score text
+	/// </summary>
 	void SetScoreText()
 	{
 		scoreText.text = "Score: " + score.ToString();
 	}
+	/// <summary>
+	/// sets health text
+	/// </summary>
+	void SetHealthText()
+    {
+        healthText.text = "Health: " + health.ToString();
+    }
 }
