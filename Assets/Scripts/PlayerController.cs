@@ -33,11 +33,11 @@ public class PlayerController : MonoBehaviour
             //SceneManager.LoadScene("maze");
             score = 0;
 			health = 5;
-			if (Input.GetKeyDown(KeyCode.Escape))
-        	{
-            	SceneManager.LoadScene(0);
-        	}
         }
+		if (Input.GetKeyDown(KeyCode.Escape))
+        {
+        	SceneManager.LoadScene(0);
+    	}
     }
     // FixedUpdate is called once per fixed framerate frame
     void FixedUpdate()
