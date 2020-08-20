@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+	public Text scoreText;
     public float speed;
     private Rigidbody body;
     private Vector3 movement;
@@ -15,13 +17,11 @@ public class PlayerController : MonoBehaviour
     {
         body = this.GetComponent<Rigidbody> ();
         speed = 50.0F;
-
     }
     // Update is called once per frame
     void Update()
     {
         movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-
         if (health == 0)
         {
             Debug.Log("Game Over!");
@@ -45,7 +45,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(other.gameObject);
             score += 1;
-            Debug.Log("Score: " + score);
+			SetScoreText();
+            //Debug.Log("Score: " + score);
         }
         if (other.gameObject.tag == "Trap")
         {
@@ -57,4 +58,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log(string.Format("You win!"));
         }
     }
+	void SetScoreText()
+	{
+		scoreText.text = "Score: 0" + score.ToString();
+	}
 }
