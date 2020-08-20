@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+	public Text winLoseText;
 	public Text scoreText;
 	public Text healthText;
     public float speed;
@@ -13,11 +14,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 movement;
     private int score = 0;
     public int health = 5;
+	private GameObject WinLoseBG;
     // Start is called before the first frame update
     void Start()
     {
         body = this.GetComponent<Rigidbody> ();
         speed = 50.0F;
+		WinLoseBG = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
     }
     // Update is called once per frame
     void Update()
@@ -25,10 +28,11 @@ public class PlayerController : MonoBehaviour
         movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
         if (health == 0)
         {
-            Debug.Log("Game Over!");
-            SceneManager.LoadScene("maze");
-            health = 5;
+			playerLose();
+            ///Debug.Log("Game Over!");
+            //SceneManager.LoadScene("maze");
             score = 0;
+			health = 5;
         }
     }
     // FixedUpdate is called once per fixed framerate frame
@@ -57,7 +61,8 @@ public class PlayerController : MonoBehaviour
         }
           if (other.gameObject.tag == "Goal")
         {
-            Debug.Log(string.Format("You win!"));
+			playerWin();
+            //Debug.Log(string.Format("You win!"));
         }
     }
 	/// <summary>
@@ -73,5 +78,31 @@ public class PlayerController : MonoBehaviour
 	void SetHealthText()
     {
         healthText.text = "Health: " + health.ToString();
+    }
+	/// <summary>
+	/// sets win text
+	/// </summary>
+	void playerWin()
+	{
+		WinLoseBG.transform.GetChild(0).GetComponent<Text>().text = "You Win!";
+        WinLoseBG.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+        WinLoseBG.GetComponent<Image>().color = Color.green;
+		WinLoseBG.SetActive(true);
+		StartCoroutine(LoadScene(3));
+	}
+	/// <summary>
+	/// sets lose text
+	/// </summary>
+	void playerLose()
+	{
+        WinLoseBG.transform.GetChild(0).GetComponent<Text>().text = "Game Over!";
+        WinLoseBG.transform.GetChild(0).GetComponent<Text>().color = Color.white;
+		WinLoseBG.SetActive(true);
+        StartCoroutine(LoadScene(3));
+	}
+	IEnumerator LoadScene(float seconds)
+	{
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
