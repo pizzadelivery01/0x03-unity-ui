@@ -60,6 +60,6 @@ public class PlayerController : MonoBehaviour
     }
 	void SetScoreText()
 	{
-		scoreText.text = "Score: 0" + score.ToString();
+		scoreText.text = "Score: " + score.ToString();
 	}
 }
