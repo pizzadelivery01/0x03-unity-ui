@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
         body = this.GetComponent<Rigidbody> ();
         speed = 50.0F;
 		WinLoseBG = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+		
     }
     // Update is called once per frame
     void Update()
